@@ -106,17 +106,25 @@ function animate() {
     draw();
 }
 
-card.addEventListener('mouseenter', () => {
-    if (!animationRunning) {
-        animationRunning = true;
-        setCanvasSize();
-        lastUpdateTime = Date.now();
-        for (let i = 0; i < numberOfPieces; i++) {
-            pieces.push(createPiece(Math.random() * confettiCanvas.width, Math.random() * confettiCanvas.height));
+// Reveal message on click
+card.addEventListener('click', () => {
+    const hiddenMessage = document.getElementById('hidden-message');
+
+    if (!hiddenMessage.classList.contains('visible')) {
+        hiddenMessage.classList.add('visible');
+
+        if (!animationRunning) {
+            animationRunning = true;
+            setCanvasSize();
+            lastUpdateTime = Date.now();
+            for (let i = 0; i < numberOfPieces; i++) {
+                pieces.push(createPiece(Math.random() * confettiCanvas.width, Math.random() * confettiCanvas.height));
+            }
+            animate();
         }
-        animate();
     }
 });
+
 
 // Create sparkle effect on background
 function createSparkles() {
@@ -138,6 +146,7 @@ function createSparkles() {
 }
 
 createSparkles();
+
 
 window.addEventListener('resize', setCanvasSize);
 setCanvasSize();
